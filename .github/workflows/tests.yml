@@ -1,0 +1,30 @@
+name: Tests
+on: push
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    name: Tests on ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          architecture: x64
+
+      - run: pip install nox
+      - run: pip install nox_poetry
+      - run: pip install poetry
+
+      - name: Run nox
+        run: nox
+
+      - name: Publish coverage metrics
+        run: nox -rs coverage
+        if: startsWith(matrix.os, 'ubuntu')
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}

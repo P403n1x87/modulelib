@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "modulelib"
+version = "0.0.0"
+description = "Python module utility library"
+authors = ["Gabriele N. Tornetta <phoenix1987@gmail.com>"]
+packages = [
+    { include = "modulelib.py" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.2"
+mock = "^4.0.3"
+pytest-cov = "^2.11.1"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
